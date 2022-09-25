@@ -1,0 +1,125 @@
+	create table department 
+	(
+	deptno int primary key,
+	deptnametext,
+	location ation
+	);
+	
+	insert into department 
+	values(1,'sales','delhi');
+	insert into department 
+	values(2,'production','mumbai');
+	insert into department 
+	values(3,'it','hydrabad');
+	insert into department 
+	values(4,'marketing','ahmedabad');
+	insert into department 
+	values(5,'analisis','surat');
+	insert into department 
+	values(6,'bca','mp');
+	insert into department 
+	values(7,'bba','baroda');
+
+
+	create table employee
+	(
+	empid int,
+	empname text,
+	gender text,
+	deptno int,
+	address text,
+	designation text,
+	salary int,
+	experience int,
+	email text,
+	foreign key(deptno)
+	references department (deptno)
+	);
+
+	insert into employee
+	values(1,'vishal','male',3,'bardoli','manager',100000,3,'vishal@gmail.com');
+	insert into employee
+	values(3,'harsh','male',4,'bodali','employee',10000,2,'harsh@gmail.com');
+	insert into employee
+	values(5,'ajay','male',5,'surat','employee',1000,1,'ajay@gmail.com');
+	insert into employee
+	values(5,'payal','female',6,'baroda','manager',120000,5,'payal@gmail.com');
+	insert into employee
+	values(2,'kartik','male',3,'rajkot','employee',20000,2,'kartik@gmail.com');
+	insert into employee
+	values(2,'vibhuti','female',2,'bharuch','salesgirl',90000,4,'vibhuti@gmail.com');
+	insert into employee
+	values(3,'viral','male',4,'ahmedabad','salesman',9000,1,'viral@gmail.com');
+	insert into employee
+	values(4,'laxman','male',5,'buhari','manager',200000,5,'laxman@gmail.com');
+	insert into employee
+	values(5,'manav','male',3,'baroda','employee',20000,3,'manav@gmail.com');
+	insert into employee
+	values(2,'deni','female',4,'bardoli','manager',200000,4,'dani@gmail.com');
+	insert into employee
+	values(2,'mihir','male',3,'bardoli','manager',20000,3,'mihir@gmail.com');
+
+
+--1	select * from employee
+	where designation ='surat';
+
+--2	select deptname from department
+	where deptname like 'a%';
+
+--3	select deptname from department
+	where deptno between 1 and 100;
+
+--4	delete from department
+	where deptname='trg';
+
+--5	update department
+	set deptname='it'
+	where deptname='bba';
+
+--6	select location from department
+	where deptnamelike '_a%';
+
+--7	select * from department
+	where location  in ('baroda','surat','ahmedabad');
+
+--8	select * from department
+	where location  in ('baroda','surat','ahmedabad');
+
+--9	select * from employee
+	order by empid asc;
+
+--10	select * from employee
+	where gender ='female';
+
+--11	select * from employee
+	order by empname;
+
+--12	select empname from employee
+	where salary between 2000 and 5000;
+
+--13	select * from employee
+	where gender='female'
+	order by empname desc;
+
+--14	select * from employee
+	where empname like 'a%a';
+
+--15	select empname,min(salary)
+	'minimum salary of employee' from employee;
+
+--16	update employee
+	set salary=salary+(salary*10/100)
+	where deptno=(select deptno from department where deptname='it');
+
+--17	select empname from employee
+	where experience<1;
+
+--18	select * from employee
+	where experience>5
+	order by deptno;
+
+--19	select * from department
+	where deptno not in (select deptno from employee);
+
+--20	delete from employee
+	where salary<10000;
