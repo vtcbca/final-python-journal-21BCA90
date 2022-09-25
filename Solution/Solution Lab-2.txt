@@ -143,11 +143,11 @@ INSERT INTO SC
 VALUES(5,101,30);
 
 INSERT INTO SC
-VALUES(5,109,110);
+VALUES(5,109,80);
 
 QUERISE:
 
-1. Display details of student who takes ‘Database Management System’ course.
+1. Display details of student who takes â€˜Database Management Systemâ€™ course.
 
 	SELECT S.* FROM STUDENT S,SC M
 	WHERE S.ROLLNO=M.ROLLNO AND M.COURSENO=(SELECT COURSENO FROM COURSE WHERE COURSENAME='DATABASE MANAGEMENT SYSTEM');
@@ -194,7 +194,7 @@ mark.
 
 	SELECT COURSENAME FROM COURSE;
 
-6. Display the student details who have secure 1st rank in ‘Computer Network’ 
+6. Display the student details who have secure 1st rank in â€˜Computer Networkâ€™ 
 course.
 
 	SELECT *,MAX(MARKS) FROM SC M,STUDENT S
