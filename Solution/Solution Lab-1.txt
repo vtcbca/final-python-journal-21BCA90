@@ -1,0 +1,193 @@
+﻿
+CREATE TABLE DEPARTMENT
+(
+	DEPT_NO INT PRIMARY KEY,
+	DEPT_NAME VARCHAR2(15) NOT NULL,
+	LOCATION VARCHAR2(15)
+);
+
+
+INSERT INTO DEPARTMENT 
+VALUES(1,'SALES','DELHI');
+
+INSERT INTO DEPARTMENT 
+VALUES(2,'PRODUCTION','MUMBAI');
+
+INSERT INTO DEPARTMENT 
+VALUES(3,'IT','HYDERABAD');
+
+INSERT INTO DEPARTMENT 
+VALUES(4,'MARKETING','AHMADABAD');
+
+INSERT INTO DEPARTMENT 
+VALUES(5,'ANALYSIS','SURAT');
+
+INSERT INTO DEPARTMENT 
+VALUES(6,'BCA','MP');
+
+INSERT INTO DEPARTMENT 
+VALUES(7,'BBA','BARODA');
+
+CREATE TABLE EMPLOYEE
+(
+	EMP_ID INT PRIMARY KEY,
+	EMP_NAME VARCHAR2(20),
+	GENDER CHAR(6),
+	DEPT_NO REFERENCES DEPARTMENT(DEPT_NO),
+	ADDRESS TEXT,
+	DESIGNATION VARCHAR2(15),
+	SALARY INT,
+	EXPERIENCE REAL,
+	EMAIL VARCHAR(30)
+);
+
+INSERT INTO EMPLOYEE
+VALUES(101,'RAJ','MALE',3,'SURAT','CEO',30000,6,'raj121@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(102,'SUMIT','MALE',3,'BARDOLI','CFO',35000,8,'sumit21@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(103,'SHAHIL','MALE',2,'MUMBAI','MANAGER',25000,10,'shahil33@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(104,'DIYA','FEMALE',2,'AHMADABAD','MD',38000,0.5,'diya44@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(105,'RIYA','FEMALE',6,'BARODA','HOD',40000,0.9,'riya@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(106,'NEHA','FEMALE',6,'BARDOLI','PROFESSOR',30000,0.3,'neha66@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(107,'SMIT','MALE',1,'DELHI','SALEMAN',15000,10,'smit77@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(108,'AYUSH','MALE',1,'PUNE','MANEGER',30000,4,'ayush88@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(109,'AJAY','MALE',7,'SURAT','HOD',38000,3,'ajay999@gmail.com');
+
+INSERT INTO EMPLOYEE
+VALUES(110,'RAJ','MALE',5,'NAVSARI','DIN',30000,1,'raj110@gmail.com');
+
+QUERIES:
+
+1. Display all Department belonging to location ‘Surat’.
+
+	 SELECT * FROM DEPARTMENT
+   	 WHERE UPPER(LOCATION='SURAT');
+	
+2. List all department name statring with ‘A’.
+	
+	SELECT * FROM DEPARTMENT
+	WHERE UPPER(DEPT_NAME LIKE 'A%');
+	
+3. List all departments whose number is between 1 and 100.
+	
+	SELECT * FROM DEPARTMENT
+	WHERE DEPT_NO BETWEEN 1 AND 100;
+	
+4. Delete ‘TRG’ department.
+	
+	DELETE FROM DEPARTMENT
+	WHERE UPPER(DEPT_NAME LIKE 'TRG');
+ 
+5. Change department name ‘BBA’ to ‘IT’.
+	
+	UPDATE DEPARTMENT
+	SET DEPT_NAME='IT'
+	WHERE UPPER(DEPT_NAME='BBA');
+	
+6. Update the location whose dept_name second letter is ‘a’.
+
+	UPDATE DEPARTMENT
+	SET LOCATION='TAPI'
+	WHERE UPPER(DEPT_NAME LIKE '_A%');
+
+7. Display data whose location is ‘Baroda’, ‘Surat’ and ‘Ahemdabad’.
+
+	SELECT * FROM DEPARTMENT 
+	WHERE UPPER(LOCATION IN ('BARODA','SURAT','AHEMDABAD'));
+	
+8. Display data who are not from ‘sales’ and ‘marketing’ department.
+
+	SELECT * FROM DEPARTMENT
+	WHERE UPPER(DEPT_NAME NOT IN('SALES','MARKETING'));
+
+9. List all records of each table in ascending order.
+	
+	SELECT * FROM DEPARTMENT 
+	ORDER BY DEPT_NAME;
+
+10. Display female employee list.
+	
+	SELECT * FROM EMPLOYEE
+	WHERE LOWER(GENDER LIKE 'female');
+ 
+11. Display all record order by emp_name.
+
+	SELECT * FROM EMPLOYEE 
+	ORDER BY EMP_NAME;
+	
+12. Find the names of the employee who has salary less than 5000 and greater than 
+2000.
+
+	SELECT EMP_NAME FROM EMPLOYEE
+	WHERE SALARY<5000 AND SALARY>2000;
+
+		OR
+
+	SELECT EMP_NAME FROM EMPLOYEE
+	WHERE SALARY BETWEEN 2000 AND 5000;
+	
+13. Display the names and the designation of all female employee in descending 
+order.
+
+	SELECT EMP_NAME,DESIGNATION FROM EMPLOYEE
+	WHERE LOWER(GENDER='female')
+	ORDER BY EMP_NAME DESC;
+
+14. Display the names of all the employees who names starts with ‘A’ ends with ‘A’.
+
+	SELECT EMP_NAME FROM EMPLOYEE
+	WHERE UPPER(EMP_NAME LIKE 'A%A');
+
+15. Find the name of employee and salary for those who had obtain minimum 
+salary.
+	
+	SELECT EMP_NAME, MIN(SALARY) "MINIMUM SALARY OF EMPLOYEE" FROM EMPLOYEE;
+	
+16. Add 10% raise in salary of all employees whose department is ‘IT’.
+
+	UPDATE EMPLOYEE
+	SET SALARY=SALARY+(SALARY*10/100)
+	WHERE DEPT_NO=(SELECT DEPT_NO FROM DEPARTMENT WHERE DEPT_NAME='IT');
+
+17. List names of employees who are fresher’s (less than 1 year of experience).
+
+	SELECT EMP_NAME FROM EMPLOYEE
+	WHERE EXPERIENCE<1;
+	
+18. List department wise names of employees who has more than 5 years of 
+experience.
+
+	SELECT * FROM EMPLOYEE
+	WHERE EXPERIENCE>5
+	ORDER BY DEPT_NO;  
+
+		OR
+
+	SELECT E.EMP_NAME,D.DEPT_NAME FROM EMPLOYEE E,DEPARTMENT D
+	WHERE EXPERIENCE>5 AND E.DEPT_NO=D.DEPT_NO
+	ORDER BY DEPT_NAME;  
+	
+19. List department having no employees.	
+	
+	SELECT * FROM DEPARTMENT
+	WHERE DEPT_NO NOT IN(SELECT DEPT_NO FROM EMPLOYEE);
+
+20. Delete the employee whose salary is less than 10000.
+
+	DELETE FROM EMPLOYEE
+	WHERE SALARY<10000;
